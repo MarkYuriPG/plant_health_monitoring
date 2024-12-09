@@ -1,9 +1,13 @@
 from ultralytics import YOLO
 
-model = YOLO('plant_id_v2.pt')
+best_pt = 'C:/Users/Yuri/Projects/plant_identification/weights/phm28.pt'
 
-path = 'D:\School\SP\plants\V2'
+# weights = 'C:/Users/Yuri/Projects/plant_identification/runs/detect/PHM28/weights/best.pt'
 
-save_path='..\plant_identification\outputs'
+model = YOLO(best_pt)
+# model = YOLO('yolov8s.pt')
 
+path = 'D:/School/SP/plants/V2'
+
+save_path='../plant_identification/outputs' #This is where your plant images you want to use for testing are found
 results = model(source=path, conf=0.25, save=True, save_dir=save_path)
