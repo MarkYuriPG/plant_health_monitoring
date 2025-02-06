@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 # Load YOLOv8 model
-best_pt = 'C:/Users/Yuri/Projects/plant_identification/weights/phmv2-1.pt'
+best_pt = 'weights/phmv2-1.pt'
 model = YOLO(best_pt)
 
 st.title("Plant Identification - PHM")
