@@ -1,6 +1,6 @@
 from ultralytics import YOLO
 
-best_pt = 'C:/Users/Yuri/Projects/plant_identification/weights/phm28.pt'
+best_pt = 'C:/Users/Yuri/Projects/plant_identification/weights/phmv2-1.pt'
 
 # weights = 'C:/Users/Yuri/Projects/plant_identification/runs/detect/PHM28/weights/best.pt'
 
