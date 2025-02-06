@@ -1,4 +1,7 @@
 from ultralytics import YOLO
+import streamlit as st
+import cv2
+import numpy as np
 
 best_pt = 'C:/Users/Yuri/Projects/plant_identification/weights/phmv2-1.pt'
 
@@ -6,6 +9,8 @@ best_pt = 'C:/Users/Yuri/Projects/plant_identification/weights/phmv2-1.pt'
 
 model = YOLO(best_pt)
 # model = YOLO('yolov8s.pt')
+
+st.title("PHM")
 
 path = 'D:/School/SP/plants/V2'
 
