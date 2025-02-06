@@ -46,8 +46,8 @@ ultralytics-thop==2.0.5
 urllib3==2.2.2
 streamlit
 opencv-python
-torch==2.4.0+cpu
-torchvision==0.19.0+cpu
-torchaudio==2.4.0+cpu
+torch==2.4.0
+torchvision==0.19.0
+torchaudio==2.4.0
 numpy
 Pillow
