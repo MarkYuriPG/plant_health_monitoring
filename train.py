@@ -5,11 +5,11 @@ if __name__ == '__main__':
     model = YOLO('yolov8s.pt')
 
     # Train the model
-    model.train(data='C:\\Users\\Yuri\\Projects\\plant_identification\\datasets\\PHM-v1-13\\data.yaml', 
+    model.train(data='C:\\Users\\Yuri\\Projects\\plant_identification\\datasets\\PHM-v2-2\\data.yaml', 
                 epochs=100,
                 imgsz=640,
                 plots=True,
-                name="PHM",
+                name="PHMv2",
                 batch=8,
                 device='cuda',
             )
