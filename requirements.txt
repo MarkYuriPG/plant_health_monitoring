@@ -56,6 +56,7 @@ seaborn==0.13.2
 setuptools==57.4.0
 six==1.16.0
 stack-data==0.6.3
+streamlit-webrtc==0.47.9
 sympy==1.13.1
 # torch==2.5.1+cu124
 torch==2.5.1
