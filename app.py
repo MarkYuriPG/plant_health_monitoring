@@ -1,12 +1,8 @@
 import os
-import cv2
 from dotenv import load_dotenv
 import numpy as np
 import streamlit as st
-import requests
-import json
-from PIL import Image, ImageDraw, ImageFont, ExifTags
-import io
+from PIL import Image, ExifTags
 import process
 
 load_dotenv()
@@ -25,7 +21,7 @@ st.markdown("""
 # Input selection
 st.subheader("Input Options")
 input_option = st.radio("Choose input type", 
-                       ("Upload Image", "Take a Picture", "Live Video"), 
+                       ("Upload Image", "Take a Picture"), 
                        key="input_radio")
 
 with st.sidebar:
@@ -45,55 +41,55 @@ with st.sidebar:
     )
 
 
-# Initialize variables for frame processing
-if 'frame_counter' not in st.session_state:
-    st.session_state.frame_counter = 0
+# # Initialize variables for frame processing
+# if 'frame_counter' not in st.session_state:
+#     st.session_state.frame_counter = 0
 
-if input_option == "Live Video":
-    # Live video implementation
-    run = st.checkbox('Start Camera')
-    FRAME_WINDOW = st.image([])
+# if input_option == "Live Video":
+#     # Live video implementation
+#     run = st.checkbox('Start Camera')
+#     FRAME_WINDOW = st.image([])
     
-    try:
-        camera = cv2.VideoCapture(0)
+#     try:
+#         camera = cv2.VideoCapture(0)
         
-        while run:
-            ret, frame = camera.read()
-            if not ret:
-                st.error("Failed to read from camera")
-                break
+#         while run:
+#             ret, frame = camera.read()
+#             if not ret:
+#                 st.error("Failed to read from camera")
+#                 break
 
-            # Convert BGR to RGB
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#             # Convert BGR to RGB
+#             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             
-            # Process every Nth frame
-            if st.session_state.frame_counter % process_every_n_frames == 0:
-                frame = process.process_frame(frame)
+#             # Process every Nth frame
+#             if st.session_state.frame_counter % process_every_n_frames == 0:
+#                 frame = process.process_frame(frame)
             
-            # Display the frame
-            FRAME_WINDOW.image(frame)
+#             # Display the frame
+#             FRAME_WINDOW.image(frame)
             
-            # Increment frame counter
-            st.session_state.frame_counter += 1
+#             # Increment frame counter
+#             st.session_state.frame_counter += 1
             
-        else:
-            # Display placeholder when stopped
-            placeholder_img = np.zeros((480, 640, 3), dtype=np.uint8)
-            cv2.putText(placeholder_img, 'Camera Stopped', (180, 240),
-                       cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-            FRAME_WINDOW.image(placeholder_img)
-            st.write('Camera Stopped')
+#         else:
+#             # Display placeholder when stopped
+#             placeholder_img = np.zeros((480, 640, 3), dtype=np.uint8)
+#             cv2.putText(placeholder_img, 'Camera Stopped', (180, 240),
+#                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+#             FRAME_WINDOW.image(placeholder_img)
+#             st.write('Camera Stopped')
             
-        # Release camera when stopped
-        if not run:
-            camera.release()
+#         # Release camera when stopped
+#         if not run:
+#             camera.release()
 
-    except Exception as e:
-        st.error(f"Error with camera: {e}")
-        if 'camera' in locals():
-            camera.release()
+#     except Exception as e:
+#         st.error(f"Error with camera: {e}")
+#         if 'camera' in locals():
+#             camera.release()
 
-elif input_option == "Take a Picture":
+if input_option == "Take a Picture":
     # Single photo capture
     img_file_buffer = st.camera_input("Take a picture")
     
