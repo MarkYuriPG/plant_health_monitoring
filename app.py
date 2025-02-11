@@ -1,21 +1,15 @@
-import os
 from dotenv import load_dotenv
 import numpy as np
 import streamlit as st
 from PIL import Image, ExifTags
 import process
 
-load_dotenv()
-
-MODEL = os.getenv("MODEL")
-KEY = os.getenv("YOLO_KEY")
-
 # Title for the app
-st.title("Plant Health Monitoring - Object Detection")
+st.title("Lettuce Health Monitoring - Segmentation Detection")
 st.markdown("""
-    **Plant Health Monitoring** is an AI-powered tool designed to help detect and identify issues in plants using object detection.
-    The model classifies images into categories such as **Aloe Vera**, **Browning**, **Rot**, **Rust**, and **Weed**. 
-    Simply upload an image, and our AI will analyze it and provide real-time results based on its findings.
+    **Lettuce Health Monitoring** is an AI-powered tool that analyzes lettuce plants to detect their health status.
+    The model segments and classifies lettuce plants as either **Healthy** or **Unhealthy**. 
+    Upload an image or take a picture to get real-time analysis of your lettuce plants.
 """)
 
 # Input selection
@@ -33,12 +27,18 @@ with st.sidebar:
         value=0.25,
         step=0.05
     )
-    process_every_n_frames = st.slider(  # Define process_every_n_frames here
-        "Process every N frames",
-        min_value=1,
-        max_value=30,
-        value=10
+    # Add visualization mode selector
+    visualization_mode = st.radio(
+        "Visualization Mode",
+        ("Segmentation", "Bounding Box"),
+        key="visualization_mode"
     )
+    # process_every_n_frames = st.slider(  # Define process_every_n_frames here
+    #     "Process every N frames",
+    #     min_value=1,
+    #     max_value=30,
+    #     value=10
+    # )
 
 
 # # Initialize variables for frame processing
@@ -123,7 +123,10 @@ if input_option == "Take a Picture":
         original_image.save(image_path)
 
         with st.spinner("Processing image..."):
-            process.process_static_image(image_path)
+            if visualization_mode == "Segmentation":
+                process.process_static_image_segment(image_path)
+            else:
+                process.process_static_image_box(image_path)
 
 elif input_option == "Upload Image":
     # Your existing upload image code
@@ -158,4 +161,7 @@ elif input_option == "Upload Image":
         original_image.save(image_path)
 
         with st.spinner("Processing image..."):
-            process.process_static_image(image_path)
+            if visualization_mode == "Segmentation":
+                process.process_static_image_segment(image_path)
+            else:
+                process.process_static_image_box(image_path)
