@@ -1,0 +1,3 @@
+ROBOFLOW_KEY="your_roboflow_key"
+YOLO_KEY="yolo_key"
+MODEL="model_url"
